@@ -14,7 +14,7 @@ cd localtunnel
 # (3000 for example if you have a node project running there)
 
 localtunnel/bin/lt.js --port 3000
-``
+```
 
 ## Quickstart
 
