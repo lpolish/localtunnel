@@ -4,6 +4,18 @@ localtunnel exposes your localhost to the world for easy testing and sharing! No
 
 Great for working with browser testing tools like browserling or external api callback services like twilio which require a public url for callbacks.
 
+## STEPS WITHOUT INSTALLING
+
+```
+git clone https://github.com/lpolish/localtunne.git
+cd localtunnel
+
+# now create a tunnel to expose a port
+# (3000 for example if you have a node project running there)
+
+localtunnel/bin/lt.js --port 3000
+``
+
 ## Quickstart
 
 ```
