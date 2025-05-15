@@ -4,9 +4,9 @@ localtunnel exposes your localhost to the world for easy testing and sharing! No
 
 Great for working with browser testing tools like browserling or external api callback services like twilio which require a public url for callbacks.
 
-## STEPS WITHOUT INSTALLING
+## Quckstart local
 
-```
+```bash
 git clone https://github.com/lpolish/localtunne.git
 cd localtunnel
 
@@ -16,9 +16,9 @@ cd localtunnel
 localtunnel/bin/lt.js --port 3000
 ```
 
-## Quickstart
+## Quickstart as a dependency
 
-```
+```bash
 npx localtunnel --port 8000
 ```
 
@@ -26,13 +26,13 @@ npx localtunnel --port 8000
 
 ### Globally
 
-```
+```bash
 npm install -g localtunnel
 ```
 
 ### As a dependency in your project
 
-```
+```bash
 yarn add localtunnel
 ```
 
@@ -40,7 +40,7 @@ yarn add localtunnel
 
 When localtunnel is installed globally, just use the `lt` command to start the tunnel.
 
-```
+```bash
 lt --port 8000
 ```
 
@@ -62,7 +62,7 @@ Below are some common arguments. See `lt --help` for additional arguments
 
 You may also specify arguments via env variables. E.x.
 
-```
+```bash
 PORT=3000 lt
 ```
 
