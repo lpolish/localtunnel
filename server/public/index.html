@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalTunnel Server</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+        }
+        .code-block {
+            background: #2d2d2d;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        pre {
+            margin: 0 !important;
+        }
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.25rem;
+            color: white;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .copy-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="gradient-bg min-h-screen">
+        <div class="container mx-auto px-4 py-16">
+            <div class="max-w-4xl mx-auto">
+                <!-- Header -->
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">LocalTunnel Server</h1>
+                    <p class="text-xl text-white opacity-90">Expose your localhost to the world with ease</p>
+                </div>
+
+                <!-- Main Content -->
+                <div class="bg-white rounded-lg shadow-xl p-8 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Quick Start</h2>
+                    
+                    <!-- Installation -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">1. Install the Client</h3>
+                        <div class="relative">
+                            <button class="copy-button" onclick="copyCode('install-cmd')">Copy</button>
+                            <pre class="code-block"><code id="install-cmd" class="language-bash">npm install -g localtunnel</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Create Tunnel -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">2. Create a Tunnel</h3>
+                        <div class="relative">
+                            <button class="copy-button" onclick="copyCode('tunnel-cmd')">Copy</button>
+                            <pre class="code-block"><code id="tunnel-cmd" class="language-bash">lt --port 3000 --host https://your-server-domain</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- API Usage -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">3. Using the API</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="text-lg font-medium text-gray-600 mb-2">Create a Tunnel</h4>
+                                <div class="relative">
+                                    <button class="copy-button" onclick="copyCode('api-create')">Copy</button>
+                                    <pre class="code-block"><code id="api-create" class="language-bash">curl -X POST https://your-server-domain/api/tunnels</code></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-gray-600 mb-2">Get Tunnel Info</h4>
+                                <div class="relative">
+                                    <button class="copy-button" onclick="copyCode('api-get')">Copy</button>
+                                    <pre class="code-block"><code id="api-get" class="language-bash">curl https://your-server-domain/api/tunnels/{tunnel_id}</code></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-gray-600 mb-2">Delete a Tunnel</h4>
+                                <div class="relative">
+                                    <button class="copy-button" onclick="copyCode('api-delete')">Copy</button>
+                                    <pre class="code-block"><code id="api-delete" class="language-bash">curl -X DELETE https://your-server-domain/api/tunnels/{tunnel_id}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Node.js Example -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">4. Node.js Example</h3>
+                        <div class="relative">
+                            <button class="copy-button" onclick="copyCode('node-example')">Copy</button>
+                            <pre class="code-block"><code id="node-example" class="language-javascript">const localtunnel = require('localtunnel');
+
+(async () => {
+  const tunnel = await localtunnel({ 
+    port: 3000,
+    host: 'https://your-server-domain'
+  });
+
+  console.log('Tunnel URL:', tunnel.url);
+})();</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features -->
+                <div class="bg-white rounded-lg shadow-xl p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-lg font-medium text-gray-900">Custom Subdomains</h3>
+                                <p class="mt-1 text-gray-500">Request specific subdomains for your tunnels</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-lg font-medium text-gray-900">SSL/TLS Support</h3>
+                                <p class="mt-1 text-gray-500">Secure connections with automatic SSL certificates</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-lg font-medium text-gray-900">Automatic Reconnection</h3>
+                                <p class="mt-1 text-gray-500">Smart reconnection handling for reliable tunnels</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-lg font-medium text-gray-900">Health Monitoring</h3>
+                                <p class="mt-1 text-gray-500">Real-time tunnel status and health checks</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script>
+        function copyCode(elementId) {
+            const code = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html> 
