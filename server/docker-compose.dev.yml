@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  tunnel-api:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  tunnel-proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./proxy:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  redis:
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes 

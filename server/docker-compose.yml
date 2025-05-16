@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # Main API and Tunnel Management Service
+  tunnel-api:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - DOMAIN=localhost
+      - MAX_TUNNELS=100
+    depends_on:
+      - redis
+    volumes:
+      - ./logs:/app/logs
+
+  # TCP Proxy Service
+  tunnel-proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    environment:
+      - API_URL=http://tunnel-api:3000
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - tunnel-api
+      - redis
+
+  # Redis for tunnel management
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis-data:/data
+
+  # Nginx for routing
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./public:/usr/share/nginx/html:ro
+    depends_on:
+      - tunnel-api
+      - tunnel-proxy
+
+volumes:
+  redis-data:
